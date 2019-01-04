@@ -12,25 +12,27 @@
  *-----------------------------------------------------------------------------
 */
 #include "caravan.h"
-#include <cstdlib>
+#include "pack_animal.h"
+#include "pack_animal.cpp"
 #include <stdlib.h>
+
 
 #define COUNT_CARAVANS 5
 
-/*
-Basically our Node
-*/
+//created the Node
+
 struct CaravanImplementation{
     int length;
     PackAnimal animal;
     struct CaravanImplementation* next;
+    struct PackAnimalImplementation* PackAnimal;
 };
 
+//the head from the list
 Caravan head = (Caravan)malloc(sizeof(struct CaravanImplementation));
 
-/*
-Creates a new Caravan
-*/
+//crates a new caravan
+
 Caravan new_caravan()
 {
     head -> animal = 0;
@@ -39,17 +41,16 @@ Caravan new_caravan()
     return head;
 }
 
-/*
-Returns the length of a caravan
-*/
+//returns the length of the caravan
+
 int get_length(Caravan caravan)
 {
     return caravan -> length;
 }
 
-/*
-Deletes a caravan
-*/
+
+//Deletes a caravan
+
 void delete_caravan(Caravan caravan)
 {
     Caravan current = head;
@@ -64,9 +65,7 @@ void delete_caravan(Caravan caravan)
     }
 }
 
-/*
-adds a pack animal to a given caravan
-*/
+
 void add_pack_animal(Caravan caravan, PackAnimal animal)
 {
   Caravan current = head;
@@ -76,21 +75,22 @@ void add_pack_animal(Caravan caravan, PackAnimal animal)
     caravan->length++;
     return;
   }
-  while (current != 0) {
-    current = current->next;
-    caravan->length++;
+  else{
+    while (current != 0) {
+      current = current->next;
+    }
+    current = caravan;
+    current->next = 0;
+    caravan->animal = animal;
+    //caravan->length++;
   }
-  current = caravan;
-  current->next = 0;
-  caravan->animal = animal;
-  //caravan->length++;
+
 }
 
-/*
-removes a pack animal from a caravan
-*/
+
 void remove_pack_animal(Caravan caravan, PackAnimal animal)
 {
+  /*
   Caravan current = head;
   if (head == 0) {
     return;
@@ -101,37 +101,30 @@ void remove_pack_animal(Caravan caravan, PackAnimal animal)
   if (current->animal == animal) {
     current = 0;
   }
-
+  */
 }
 
-/*
-returns the load of a caravan given
-*/
+
 int get_caravan_load(Caravan caravan)
 {
-    return 0;
+  return 0;
+    //eturn caravan->PackAnimal->load;
 }
 
-/*
-unloads a caravan
-*/
+
 
 void unload(Caravan caravan)
 {
+  //caravan->PackAnimal->load = 0;
 }
 
-/*
-returns the speed of a caravan
-*/
+
 int get_caravan_speed(Caravan caravan)
 {
     return 0;
 }
 
-/*
-Verteilt die Last der Ballen so auf die einzelnen Tiere,
-dass die Geschwindigkeit der Karawane maximal ist.
-*/
+
 void optimize_load(Caravan caravan){
 
 }

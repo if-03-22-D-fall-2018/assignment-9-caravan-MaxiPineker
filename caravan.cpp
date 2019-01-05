@@ -100,9 +100,9 @@ void add_pack_animal(Caravan caravan, PackAnimal animal)
 
 void remove_pack_animal(Caravan caravan, PackAnimal animal)
 {
-  /*
-  Caravan current = head;
-  if (head == 0) {
+  Node current = caravan->head;
+  Node currentB;
+  if (caravan->head == 0) {
     return;
   }
   while (current != 0 && current->animal != animal) {
@@ -111,7 +111,10 @@ void remove_pack_animal(Caravan caravan, PackAnimal animal)
   if (current->animal == animal) {
     current = 0;
   }
-  */
+  currentB->next = current->next;
+  sfree(current);
+  remove_from_caravan(animal, caravan);
+  caravan->length--;
 }
 
 

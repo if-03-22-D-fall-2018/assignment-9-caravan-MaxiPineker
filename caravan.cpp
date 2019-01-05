@@ -12,33 +12,33 @@
  *-----------------------------------------------------------------------------
 */
 #include "caravan.h"
-#include "pack_animal.h"
-#include "pack_animal.cpp"
+#include "general.h"
 #include <stdlib.h>
 
 
 #define COUNT_CARAVANS 5
 
-//created the Node
+typedef struct NodeImplementation* Node;
+
+struct NodeImplementation{
+    PackAnimal animal;
+    struct NodeImplementation* next;
+};
 
 struct CaravanImplementation{
     int length;
-    PackAnimal animal;
-    struct CaravanImplementation* next;
-    struct PackAnimalImplementation* PackAnimal;
+    Node head;
 };
 
-//the head from the list
-Caravan head = (Caravan)malloc(sizeof(struct CaravanImplementation));
 
 //crates a new caravan
 
 Caravan new_caravan()
 {
-    head -> animal = 0;
-    head -> next = 0;
-    head -> length = 0;
-    return head;
+  Caravan caravan =(Caravan)malloc(sizeof(struct CaravanImplementation));
+  caravan->length = 0;
+  caravan->head = 0;
+  return caravan;
 }
 
 //returns the length of the caravan
@@ -53,25 +53,27 @@ int get_length(Caravan caravan)
 
 void delete_caravan(Caravan caravan)
 {
-    Caravan current = head;
+    Node current = caravan->head;
+
     while (current != 0)
     {
-        if(caravan == current->next) {
-            current -> next = caravan -> next;
-            free(caravan);
-            return;
-        }
-       current = current->next;
+      Node to_be_deleted = current;
+      current = current->next;
+      sfree(to_be_deleted);
+      return;
+
     }
+    sfree(caravan);
 }
 
 
 void add_pack_animal(Caravan caravan, PackAnimal animal)
 {
-  Caravan current = head;
+  /*
+  Node current = caravan->head;
 
-  if (head == 0) {
-    head->animal = animal;
+  if (caravan->head == 0) {
+    caravan->animal = animal;
     caravan->length++;
     return;
   }
@@ -84,7 +86,7 @@ void add_pack_animal(Caravan caravan, PackAnimal animal)
     caravan->animal = animal;
     //caravan->length++;
   }
-
+  */
 }
 
 
@@ -108,14 +110,13 @@ void remove_pack_animal(Caravan caravan, PackAnimal animal)
 int get_caravan_load(Caravan caravan)
 {
   return 0;
-    //eturn caravan->PackAnimal->load;
 }
 
 
 
 void unload(Caravan caravan)
 {
-  //caravan->PackAnimal->load = 0;
+
 }
 
 
